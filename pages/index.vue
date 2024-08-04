@@ -20,6 +20,10 @@
 </template>
 
 <script setup>
+useHead({
+    title: '首页'
+})
+
 const nuxtApp = useNuxtApp()
 const { data, error, status, refresh } = await useFetch('/index', {
     // key，可以用来做缓存

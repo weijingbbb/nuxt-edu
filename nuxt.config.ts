@@ -28,5 +28,29 @@ export default defineNuxtConfig({
   },
   css: [
     "~/assets/main.css"
-  ]
+  ],
+  app: {
+    head: {
+      titleTemplate: '%s - 小魏同学的Nuxt项目',
+      title: '小魏同学的Nuxt项目',
+      charset: 'utf-8',
+      htmlAttrs: {
+        lang: "zh-cn"
+      },
+      meta: [
+        {
+          name: 'description',
+          content: '这个是项目项目描述'
+        },
+
+        {
+          name: 'keywords',
+          content: '关键词'
+        }
+      ],
+      // 引入一些第三方cdn
+      script: [],
+      link:[]
+    }
+  }
 })
