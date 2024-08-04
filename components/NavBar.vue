@@ -4,7 +4,8 @@
             <n-button text class="!text-xl !font-bold">小魏同学</n-button>
 
             <ui-menu>
-                <ui-menu-item v-for="(item,index) in menus" :key="index" :active="route.path == item.path" @click="handleOpen(item.path)">
+                <ui-menu-item v-for="(item, index) in menus" :key="index" :active="isMenuItemActive(item)"
+                    @click="handleOpen(item.path)">
                     {{ item.name }}
                 </ui-menu-item>
             </ui-menu>
@@ -34,28 +35,70 @@ const menus = [{
     path: "/"
 }, {
     name: "考试",
-    path: "/paper/1"
+    path: "/paper/1",
+    match: [{
+        name: "paper-page"
+    }]
 }, {
     name: "拼团",
-    path: "/list/group/1"
+    path: "/list/group/1",
+    match: [{
+        name: "list-type-page",
+        params: {
+            type: "group"
+        }
+    }]
 }, {
     name: "秒杀",
-    path: "/list/flashsale/1"
+    path: "/list/flashsale/1",
+    match: [{
+        name: "list-type-page",
+        params: {
+            type: "flashsale"
+        }
+    }]
 }, {
     name: "直播",
-    path: "/list/live/1"
+    path: "/list/live/1",
+    match: [{
+        name: "list-type-page",
+        params: {
+            type: "live"
+        }
+    }]
 }, {
     name: "专栏",
-    path: "/list/column/1"
+    path: "/list/column/1",
+    match: [{
+        name: "list-type-page",
+        params: {
+            type: "column"
+        }
+    }]
 }, {
     name: "电子书",
-    path: "/list/book/1"
+    path: "/list/book/1",
+    match: [{
+        name: "list-type-page",
+        params: {
+            type: "book"
+        }
+    }]
 }, {
     name: "社区",
-    path: "/bbs/0/1"
+    path: "/bbs/0/1",
+    match: [{
+        name: "bbs-bbs_id-page"
+    }]
 }, {
     name: "课程",
-    path: "/list/course/1"
+    path: "/list/course/1",
+    match: [{
+        name: "list-type-page",
+        params: {
+            type: "course"
+        }
+    }]
 }]
 
 const userOptions = [{
@@ -71,24 +114,27 @@ function handleOpen(path) {
     navigateTo(path)
 }
 
+
+// 导航样式匹配
+const isMenuItemActive = (item) => {
+    if (item.match) {
+        let i = item.match.findIndex(o => {
+            let res = true
+            if (o.params && typeof o.params === "object") {
+                res = (Object.keys(o.params).findIndex(k => route.params[k] == o.params[k])) != -1
+            }
+            return o.name == route.name && res
+        })
+        return i != -1
+    }
+    return route.path == item.path
+}
+
 </script>
 
 <style>
 .navbar {
     z-index: 1000;
     @apply bg-white fixed top-0 left-0 right-0 shadow-sm;
-}
-
-.menu {
-    @apply flex items-center px-4;
-}
-
-.menu-item {
-    transition: all 0.2s;
-    @apply px-2 py-1 mx-1 rounded cursor-pointer hover:(bg-blue-50 text-blue-700) active:( !bg-blue-100);
-}
-
-.menu-item-active {
-    @apply !bg-blue-100 !text-blue-600;
 }
 </style>

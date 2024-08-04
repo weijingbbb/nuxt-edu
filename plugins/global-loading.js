@@ -6,7 +6,6 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     nuxtApp.hook('app:mounted', () => {
         console.log('应用挂载啦');
-        bar.value = loadingBar
     })
     nuxtApp.hook('page:start', () => {
         console.log('页面开始导航');
