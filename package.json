@@ -17,6 +17,7 @@
     "vue": "latest"
   },
   "devDependencies": {
-    "naive-ui": "^2.39.0"
+    "naive-ui": "^2.39.0",
+    "nuxt-windicss": "^3.0.1"
   }
 }

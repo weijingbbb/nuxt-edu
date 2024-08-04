@@ -6,7 +6,7 @@ import Components from 'unplugin-vue-components/vite'
 export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
-  modules: ["nuxtjs-naive-ui"],
+  modules: ["nuxtjs-naive-ui", 'nuxt-windicss'],
   vite: {
     plugins: [
       AutoImport({
@@ -25,5 +25,5 @@ export default defineNuxtConfig({
         resolvers: [NaiveUiResolver()]
       })
     ]
-  }
+  },
 })
