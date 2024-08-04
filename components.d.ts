@@ -17,6 +17,7 @@ declare module 'vue' {
     NGrid: typeof import('naive-ui')['NGrid']
     NIcon: typeof import('naive-ui')['NIcon']
     NResult: typeof import('naive-ui')['NResult']
+    NSkeleton: typeof import('naive-ui')['NSkeleton']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
