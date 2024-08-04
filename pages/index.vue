@@ -1,12 +1,20 @@
 <template>
     <div>
-        这个是首页，
-        <nuxt-link to="/test">跳转test页</nuxt-link>
-        <div>{{ status }}</div>
-        <div></div>
-        <div>
-            {{ data }}
-        </div>
+        <template v-if="status === 'pending'">
+            加载中...
+        </template>
+        <template v-else-if="error">
+            错误提示： {{ error?.data?.data }}
+        </template>
+        <template v-else>
+            <template v-for="(item, index) in data" :key="index">
+                <Banner :data="item.data" v-if="item.type == 'swiper'" />
+                <ImageNav :data="item.data" v-else-if="item.type == 'icons'" />
+                <ImageAd :data="item.data" v-else-if="item.type == 'imageAd'" />
+                <!-- <ListCard :title="item.title" :data="item.data" v-else-if="item.type == 'list'" /> -->
+            </template>
+        </template>
+
     </div>
 </template>
 
@@ -17,7 +25,7 @@ const { data, error, status, refresh } = await useFetch('/index', {
     key: 'indexData',
     baseURL: 'http://demonuxtapi.dishait.cn/pc',
     headers: {
-        appid: 'bd9d01ecc75dbbaaefce1'
+        appid: 'bd9d01ecc75dbbaaefce'
     },
     // 相当于响应拦截器
     transform: (res) => {
