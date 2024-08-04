@@ -3,11 +3,11 @@
         <div class="container flex items-center h-[60px]">
             <n-button text class="!text-xl !font-bold">小魏同学</n-button>
 
-            <div class="menu">
-                <div class="menu-item" v-for="(item, index) in menus" :key="index"
-                    :class="{ 'menu-item-active': (route.path == item.path) }" @click="handleOpen(item.path)">{{
-                    item.name }}</div>
-            </div>
+            <ui-menu>
+                <ui-menu-item v-for="(item,index) in menus" :key="index" :active="route.path == item.path" @click="handleOpen(item.path)">
+                    {{ item.name }}
+                </ui-menu-item>
+            </ui-menu>
 
             <n-button circle class="ml-auto mr-3">
                 <template #icon>
