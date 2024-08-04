@@ -52,5 +52,10 @@ export default defineNuxtConfig({
       script: [],
       link:[]
     }
+  },
+  // 自动导入
+  imports: {
+    // 导入api，否则不能进行请求
+    dirs:["apis"]
   }
 })
