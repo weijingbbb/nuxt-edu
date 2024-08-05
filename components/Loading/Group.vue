@@ -1,7 +1,9 @@
 <template>
     <div>
         <template v-if="loading">
-            <LoadingSkeleton/>
+            <slot name="loading">
+                <LoadingSkeleton/>
+            </slot>
         </template>
         <template v-else-if="error">
             <n-result class="mt-10" status="500" title="错误提示" 
