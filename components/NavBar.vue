@@ -17,9 +17,13 @@
                     </n-icon>
                 </template>
             </n-button>
-            <!-- <n-button secondary strong>登录</n-button> -->
-            <n-dropdown :options="userOptions">
-                <n-avatar round size="small" src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg" />
+            <nuxt-link to="/login" v-if="!user">
+                <n-button secondary strong>登录</n-button>
+            </nuxt-link>
+
+            <n-dropdown v-else :options="userOptions" @select="handleSelect">
+                <n-avatar round size="small"
+                    :src="user.avatar || 'https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg'" />
             </n-dropdown>
         </div>
     </div>
@@ -29,7 +33,7 @@
 
 <script setup>
 import { Search } from '@vicons/ionicons5';
-
+import { createDiscreteApi } from "naive-ui";
 
 const menus = [{
     name: "首页",
@@ -111,9 +115,10 @@ const userOptions = [{
 }]
 
 const route = useRoute()
+const user = useUser()
 
 const SearchBarRef = ref(null)
-const openSearch = ()=>SearchBarRef.value.open()
+const openSearch = () => SearchBarRef.value.open()
 
 function handleOpen(path) {
     navigateTo(path)
@@ -133,6 +138,23 @@ const isMenuItemActive = (item) => {
         return i != -1
     }
     return route.path == item.path
+}
+
+const handleSelect = (k) => {
+    switch (k) {
+        case "logout":
+            const { dialog } = createDiscreteApi(["dialog"])
+            dialog.warning({
+                content: "是否要退出登录？",
+                positiveText: "退出",
+                negativeText: "取消",
+                closable: false,
+                onPositiveClick: async () => {
+                    await useLogout()
+                },
+            });
+            break;
+    }
 }
 
 </script>
