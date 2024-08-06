@@ -6,3 +6,10 @@ export function useSearchListApi(query){
         lazy:true
     })
 }
+
+// 获取可用优惠券列表
+export function useCouponListApi(){
+    return useHttpGet("CouponList","/coupon/list", {
+        $: true
+    })
+}

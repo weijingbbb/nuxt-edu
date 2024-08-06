@@ -9,6 +9,8 @@
                         <FavaBtn :isfava="data.isfava" :goods_id="data.id" :type="type" />
                     </div>
                     <p class="my-2 text-xs text-gray-400">{{ subTitle }}</p>
+                    <!-- 领取优惠券 -->
+                    <CouponModal/>
                     <div v-if="!data.isbuy">
                         <Price :value="data.price" class="text-xl" />
                         <Price :value="data.t_price" through class="ml-1 text-xs" />
