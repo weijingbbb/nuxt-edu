@@ -95,7 +95,16 @@ export function useMyFavaListApi(page){
 // 取消收藏
 export function useUncollectApi(body){
     return useHttpPost("Uncollect","/uncollect",{
-        body
+        body,
+        $: true
+    })
+}
+
+// 收藏
+export function useCollectApi(body){
+    return useHttpPost("collect","/collect",{
+        body,
+        $: true
     })
 }
 

@@ -1,5 +1,5 @@
 <template>
-    <n-card class="cursor-pointer mb-5 shadow-md !border-0" footer-style="padding:0;">
+    <n-card class="cursor-pointer mb-5 shadow-md !border-0" footer-style="padding:0;" @click="open">
         <template #cover>
             <img :src="item.cover" class="w-[100%] h-[150px]" />
         </template>
@@ -22,7 +22,11 @@
     </n-card>
 </template>
 <script setup>
-defineProps({
+const props = defineProps({
     item: Object
 })
+
+const open = () => {
+    navigateTo(`/detail/course/${props.item.id}`)
+}
 </script>
