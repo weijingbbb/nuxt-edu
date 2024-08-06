@@ -75,3 +75,24 @@ export function useUserTestApi(page){
         lazy:true
     })
 }
+
+// 获取优惠券记录
+export function useUserCouponApi(page){
+    return useHttpGet("UserCoupon",`/user_coupon?page=${page}`,{
+        lazy:true
+    })
+}
+
+// 我的收藏列表
+export function useMyFavaListApi(page){
+    return useHttpGet("MyFavaList",`/user_fava?page=${page}`,{
+        lazy:true
+    })
+}
+
+// 取消收藏
+export function useUncollectApi(body){
+    return useHttpPost("Uncollect","/uncollect",{
+        body
+    })
+}
