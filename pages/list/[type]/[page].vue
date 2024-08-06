@@ -11,9 +11,10 @@
             <template #loading>
                 <LoadingCourseSkeleton />
             </template>
-            <n-grid :x-gap="20" :cols="4">
+            <n-grid :x-gap="20" :cols="type == 'book' ? 2 : 4">
                 <n-gi v-for="(item, index) in rows" :key="index">
-                    <CourseList :item="item" />
+                    <BookList v-if="type == 'book'" :item="item" />
+                    <CourseList v-else :item="item" />
                 </n-gi>
             </n-grid>
             <div class="flex justify-center items-center mt-5 mb-10">

@@ -5,15 +5,15 @@
         </n-tag>
         章节{{ index + 1 }}.{{ item.title }}
 
-        <n-tag v-if="item.price == 0" type="success" :bordered="false" size="small" class="ml-auto">
+        <n-tag v-if="item.price == 0 || item.isfree == 1" type="success" :bordered="false" size="small" class="ml-auto">
             免费
         </n-tag>
     </li>
 </template>
 <script setup>
     import {
-        NTag
-    } from "naive-ui"
+    NTag
+} from "naive-ui";
     defineProps({
         item:Object,
         index:Number
