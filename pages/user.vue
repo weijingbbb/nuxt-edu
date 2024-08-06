@@ -35,21 +35,28 @@ const menus = [{
     name: "user-post-page"
 }, {
     title: "优惠券记录",
-    name:"user-coupon-page"
+    name: "user-coupon-page"
 }, {
     title: "我的收藏",
-    name:"user-fava-page"
+    name: "user-fava-page"
 }, {
     title: "修改资料",
-    name:"user-edit"
+    name: "user-edit"
 }, {
     title: "修改密码",
+    name: "user-password"
 }, {
     title: "其他设置",
+    name: "user-other"
 }]
 
 const navigate = (item) => {
-    navigateTo({
+    if (item.name === 'user-password' || item.name === 'user-other') {
+        return navigateTo({
+            name: item.name,
+        })
+    }
+    return navigateTo({
         name: item.name,
         params: {
             page: 1

@@ -118,3 +118,10 @@ export function useUploadConfig(){
         }
     }
 }
+
+// 修改密码
+export function useupdatePasswordApi(body){
+    return useHttpPost("updatePassword","/update_password",{
+        body
+    })
+}
