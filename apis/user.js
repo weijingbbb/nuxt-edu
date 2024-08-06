@@ -1,3 +1,5 @@
+// import { fetchConfig } from '../composable/useHttp'
+
 export function useLoginApi(body) {
     return useHttpPost("login", "/login", {
         body,
@@ -95,4 +97,24 @@ export function useUncollectApi(body){
     return useHttpPost("Uncollect","/uncollect",{
         body
     })
+}
+
+// 修改资料
+export function useUpdateUserInfoApi(body){
+    return useHttpPost("updateUserInfo","/update_info",{
+        body,
+        $: true
+    })
+}
+
+// 上传图片
+export function useUploadConfig(){
+    const token = useCookie("token")
+    return {
+        action: fetchConfig.baseURL + "/upload",
+        headers:{
+            appid:fetchConfig.headers.appid,
+            token:token.value
+        }
+    }
 }
