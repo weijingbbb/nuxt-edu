@@ -13,7 +13,9 @@
             <n-button quaternary type="primary" size="tiny" @click="changeType">
                 {{ type === 'login' ? '注册' : '登录' }}
             </n-button>
-            <n-button quaternary type="primary" size="tiny">忘记密码？</n-button>
+            <nuxt-link to="/forget">
+                <n-button quaternary type="primary" size="tiny">忘记密码？</n-button>
+            </nuxt-link>
         </div>
         <div>
             <n-button class="w-full" type="primary" @click="onSubmit" :loading="loading">
@@ -120,6 +122,7 @@ useEnterEvent(() => onSubmit())
 
 // 使用这个api，定义元数据，可以设置使用的模板
 definePageMeta({
-    layout: "login"
+    layout: "login",
+    middleware: ["only-visitor"]
 })
 </script>

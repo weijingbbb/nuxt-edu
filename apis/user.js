@@ -43,3 +43,11 @@ export function useBindPhoneApi(body) {
         $: true
     })
 }
+
+// 忘记密码
+export function useForgetApi(body){
+    return useHttpPost("forget","/forget",{
+        body,
+        $: true
+    })
+}
