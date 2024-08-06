@@ -45,9 +45,19 @@ export function useBindPhoneApi(body) {
 }
 
 // 忘记密码
-export function useForgetApi(body){
-    return useHttpPost("forget","/forget",{
+export function useForgetApi(body) {
+    return useHttpPost("forget", "/forget", {
         body,
         $: true
+    })
+}
+
+// 获取学习记录
+export function useUserHistoryApi(query) {
+    return useHttpGet("userHistory", () => {
+        let q = useQueryToString(query())
+        return `/user_history/list${q}`
+    }, {
+        lazy: true
     })
 }

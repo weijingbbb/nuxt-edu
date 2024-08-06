@@ -13,6 +13,9 @@
                 </template>
             </n-result>
         </template>
+        <template v-else-if="isEmpty">
+            <Empty/>
+        </template>
         <template v-else>
             <slot />
         </template>
@@ -29,6 +32,10 @@ const props = defineProps({
     error: {
         type: [String, Boolean, Symbol],
         default: false
+    },
+    isEmpty:{
+        type:Boolean,
+        default:false
     }
 })
 
