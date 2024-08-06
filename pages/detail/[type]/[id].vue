@@ -1,6 +1,6 @@
 <template>
     <LoadingGroup :pending="pending" :error="error">
-        <section class="py-4" v-if="data.isbuy && (data.type != 'media' && type == 'course')">
+        <section class="py-4" v-if="data.isbuy && ((data.type != 'media' && type == 'course') || type == 'live')">
             <ClientOnly>
                 <template #fallback>
                     <LoadingSkeleton />
@@ -8,6 +8,8 @@
                 <PlayerAudio v-if="data.type == 'audio'" :title="data.title" :url="data.content" :cover="data.cover" />
                 <!-- 引入视频播放器 -->
                 <PlayerVideo v-else-if="data.type == 'video'" :url="data.content" />
+                <!-- 引入直播播放器 -->
+                <PlayerLive v-else-if="type == 'live'" :url="data.playUrl" />
             </ClientOnly>
         </section>
 
@@ -20,12 +22,15 @@
                         <FavaBtn :isfava="data.isfava" :goods_id="data.id" :type="type" />
                     </div>
                     <p class="my-2 text-xs text-gray-400">{{ subTitle }}</p>
-                    <!-- 领取优惠券 -->
-                    <CouponModal />
+
                     <div v-if="!data.isbuy">
                         <Price :value="data.price" class="text-xl" />
                         <Price :value="data.t_price" through class="ml-1 text-xs" />
                     </div>
+
+                    <!-- 领取优惠券 -->
+                    <CouponModal v-if="type != 'live'" />
+                    <LiveStatusBar v-else :start="data.start_time" :end="data.end_time" />
                 </div>
 
                 <div class="mt-auto" v-if="!data.isbuy">
@@ -217,23 +222,33 @@ function useInitDetailTabs(t) {
     }
 }
 
-// 音频视频使用
+// 音频、视频、直播使用
 // 初始化head
-function useInitHead(){
-        if(type === "course"){
-            useHead({
-                link:[{
-                    rel:"stylesheet",
-                    href:"/aplayer/APlayer.min.css"
-                }],
-                script:[{
-                    src:"/aplayer/APlayer.min.js",
-                },{
-                    src:"//unpkg.byted-static.com/xgplayer/2.31.2/browser/index.js"
-                }]
-            })
-        }
+function useInitHead() {
+    if (type === "course") {
+        useHead({
+            link: [{
+                rel: "stylesheet",
+                href: "/aplayer/APlayer.min.css"
+            }],
+            script: [{
+                src: "/aplayer/APlayer.min.js",
+            }, {
+                src: "//unpkg.byted-static.com/xgplayer/2.31.2/browser/index.js"
+            }]
+        })
     }
+
+    if (type === "live") {
+        useHead({
+            script: [{
+                src: "//unpkg.byted-static.com/xgplayer/2.31.2/browser/index.js",
+            }, {
+                src: "//unpkg.byted-static.com/xgplayer-flv/2.5.1/dist/index.min.js"
+            }]
+        })
+    }
+}
 
 </script>
 <style>
