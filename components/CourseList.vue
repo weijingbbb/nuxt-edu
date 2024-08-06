@@ -26,7 +26,18 @@ const props = defineProps({
     item: Object
 })
 
-const open = () => {
-    navigateTo(`/detail/course/${props.item.id}`)
+
+const open = ()=>{
+    let path = ""
+    // 课程详情
+    if(["course","media","audio","video"].includes(props.item.type)){
+        path = `/detail/course/${props.item.id}`
+    }
+    // 专栏详情
+    else if(props.item.type == "column"){
+        path = `/detail/column/${props.item.id}`
+    }
+
+    navigateTo(path)
 }
 </script>

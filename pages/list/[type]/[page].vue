@@ -38,7 +38,11 @@ const {
     pending,
     error,
     refresh
-} = await usePage(({ page, limit }) => useCourseListApi(page))
+} = await usePage(({ page, limit }) => {
+    return useListApi(type, {
+        page
+    })
+})
 
 definePageMeta({
     middleware: ["list"]
