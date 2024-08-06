@@ -20,18 +20,18 @@ export default defineNuxtRouteMiddleware((to, from) => {
 
 
     // 未登录
-    // if(!token.value){
-    //     if(process.client){
-    //         const { message } = createDiscreteApi(["message"])
-    //         message.error("请先登录") 
-    //     }
-    //     return navigateTo("/login?from="+route.fullPath)
-    // }
-    // if(!phone && route.name != 'bindphone'){
-    //     if(process.client){
-    //         const { message } = createDiscreteApi(["message"])
-    //         message.error("请先绑定手机号") 
-    //     }
-    //     return navigateTo("/bindphone?from="+route.fullPath)
-    // }
+    if(!token.value){
+        if(import.meta.client){
+            const { message } = createDiscreteApi(["message"])
+            message.error("请先登录") 
+        }
+        return navigateTo("/login?from="+from.fullPath)
+    }
+    if(!phone && route.name != 'bindphone'){
+        if(import.meta.client){
+            const { message } = createDiscreteApi(["message"])
+            message.error("请先绑定手机号") 
+        }
+        return navigateTo("/bindphone?from="+from.fullPath)
+    }
 })

@@ -154,6 +154,12 @@ const handleSelect = (k) => {
                 },
             });
             break;
+
+        case "center":
+            navigateTo({
+                path: "/user/history/1"
+            })
+            break;
     }
 }
 
