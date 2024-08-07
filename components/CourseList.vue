@@ -11,6 +11,7 @@
             <Price :value="item.t_price" through class="ml-2" />
         </div>
         <template #footer v-if="item.group_id || item.flashsale_id">
+            <ClientOnly>
             <div class=" bg-yellow-500 text-white p-3 text-xs flex items-center rounded-b">
                 {{ item.group_id ? '拼团中' : '秒杀中' }}
                 <div class="ml-auto flex items-center">
@@ -18,6 +19,7 @@
                     <CountDown :time="item.end_time" />
                 </div>
             </div>
+        </ClientOnly>
         </template>
     </n-card>
 </template>
@@ -41,6 +43,16 @@ const open = ()=>{
     else if(props.item.type == "live"){
         path = `/detail/live/${props.item.id}`
     }
+
+    
+    // 秒杀和拼团
+    if(props.item.group_id){
+        path = `${path}?group_id=${props.item.group_id}`
+    }
+    if(props.item.flashsale_id){
+        path = `${path}?flashsale_id=${props.item.flashsale_id}`
+    }
+
 
     navigateTo(path)
 }

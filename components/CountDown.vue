@@ -10,21 +10,26 @@
     </div>
 </template>
 <script setup>
+
 const props = defineProps({
-    time:{
-        type:[String,Number],
-        default:""
+    time: {
+        type: [String, Number],
+        default: ""
     }
 })
 
-const emit = defineEmits(["start","end"])
+const emit = defineEmits(["start", "end"])
 const data = useCountDown(props.time)
 
-function useCountDown(end_time){
+// onMounted(() => {
+//     data.value = useCountDown(props.time)
+// })
+
+function useCountDown(end_time) {
     const timeout = ref(0)
     const Timer = ref(null)
 
-    if(typeof end_time === "string"){
+    if (typeof end_time === "string") {
         end_time = (new Date(end_time)).getTime()
     }
 
@@ -32,7 +37,7 @@ function useCountDown(end_time){
     timeout.value = (end_time - Date.now()) / 1000
 
     // 如果timeout<=0, 直接结束
-    if(timeout.value <= 0) return emit("end")
+    if (timeout.value <= 0) return emit("end")
 
     close()
 
@@ -40,18 +45,18 @@ function useCountDown(end_time){
     Timer.value = setInterval(() => {
         timeout.value--
         // 如果 timeout.value <= 0，关闭定时器，触发结束
-        if(timeout.value <= 0){
+        if (timeout.value <= 0) {
             close()
             emit("end")
         }
     }, 1000);
 
-    function close(){
-        if(Timer.value) clearInterval(Timer.value)
+    function close() {
+        if (Timer.value) clearInterval(Timer.value)
     }
 
     // 将 秒 转 天/时/分/秒
-    const d = computed(()=>formatDiffDate(timeout.value))
+    const d = computed(() => formatDiffDate(timeout.value))
 
     return d
 }

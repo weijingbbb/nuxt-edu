@@ -35,3 +35,8 @@ export function useGetWxpayStatusApi(no){
         $:true
     })
 }
+
+// 当前拼团专栏/课程的可组团列表
+export function useGetGroupWorkListApi(group_id,page = 1){
+    return useHttpGet("getGroupWorkList",`/group_work/list?group_id=${group_id}&page=${page}`)
+}

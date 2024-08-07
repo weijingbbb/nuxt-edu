@@ -9,7 +9,8 @@
 
         <LoadingGroup :pending="pending" :error="error" :is-empty="rows.length === 0">
             <template #loading>
-                <LoadingCourseSkeleton />
+                <LoadingBookSkeleton v-if="type == 'book'" />
+                <LoadingCourseSkeleton v-else />
             </template>
             <n-grid :x-gap="20" :cols="type == 'book' ? 2 : 4">
                 <n-gi v-for="(item, index) in rows" :key="index">
@@ -26,6 +27,13 @@
     </div>
 </template>
 <script setup>
+import {
+    NBreadcrumb,
+    NBreadcrumbItem,
+    NGi,
+    NGrid,
+    NPagination
+} from "naive-ui";
 const route = useRoute()
 const { type } = route.params
 const title = route.meta.title
@@ -40,9 +48,16 @@ const {
     error,
     refresh
 } = await usePage(({ page, limit }) => {
-    return useListApi(type, {
+
+    let query = {
         page
-    })
+    }
+
+    if (type == "group" || type == "flashsale") {
+        query.usable = 1
+    }
+
+    return useListApi(type, query)
 })
 
 definePageMeta({
