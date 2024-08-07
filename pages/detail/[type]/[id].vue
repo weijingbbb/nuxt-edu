@@ -141,6 +141,19 @@ const buy = () => {
 
             return
         }
+
+        // 付费学习
+        let ty = "course"
+            let id = data.value.id
+            if(type == "book"){
+                ty = "book"
+            } else if(type == "live"){
+                ty = "live"
+            } else if(type == "column"){
+                ty = "column"
+            }
+
+            navigateTo(`/createorder?id=${id}&type=${ty}`)
     })
 }
 
