@@ -1,6 +1,6 @@
 <template>
-    <div class="border-b p-5">
-        <div class="cursor-pointer text-gray-600" @click="open">
+    <div class="border-b p-5"  @click="open">
+        <div class="cursor-pointer text-gray-600">
             <n-tag v-if="item.is_top" :bordered="false" type="success" size="small">置顶</n-tag>
             {{ item.desc.text }}
         </div>
@@ -76,6 +76,7 @@ const deleteItem = () => {
 }
 
 const open = () => {
+    console.log(props.item.id);
     navigateTo("/post_detail/" + props.item.id)
 }
 </script>
